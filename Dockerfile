@@ -8,12 +8,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # set the name of the package
-ENV MIMVERSION mimersqlsrv1106_11.0.6C
-ENV DEBFILE ${MIMVERSION}-37151_amd64.deb
-ENV URL http://ftp.mimer.com/pub/beta/linux_x86_64
-
+ARG MIMVERSION=mimersqlsrv1106_11.0.6C
+ARG DEBFILE=${MIMVERSION}-37151_amd64.deb
+ARG BASE_URL=http://ftp.mimer.com/pub/beta/linux_x86_64
+LABEL VERSION=${MIMVERSION}
 # fetch the package and install it
-RUN wget -nv -o {DEBFILE} ${URL}/${DEBFILE} && \
+RUN wget -nv -o {DEBFILE} ${BASE_URL}/${DEBFILE} && \
     dpkg --install ${DEBFILE} && \
     rm ${DEBFILE}
 
