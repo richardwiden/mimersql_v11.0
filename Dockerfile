@@ -13,8 +13,10 @@ ENV DEBFILE ${MIMVERSION}-37151_amd64.deb
 ENV URL http://ftp.mimer.com/pub/beta/linux_x86_64
 
 # fetch the package and install it
-RUN wget -nv -o {DEBFILE} ${URL}/${DEBFILE}
-RUN dpkg --install ${DEBFILE}
+RUN wget -nv -o {DEBFILE} ${URL}/${DEBFILE} && \
+    dpkg --install ${DEBFILE} && \
+    rm ${DEBFILE}
+
 STOPSIGNAL SIGINT
 
 # copy the start script and launch Mimer SQL
