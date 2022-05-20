@@ -180,5 +180,5 @@ fi
 # Wait forever
 while true
 do
-  tail -f /dev/null & wait ${!}
+  tail -f ${MIMER_DATA_DIR}/${MIMER_DATABASE}/mimer.log & wait ${!}
 done
