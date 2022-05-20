@@ -18,72 +18,6 @@ config_and_start_mimer()
   if [ ! -e ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs ]; then
     mimcontrol -g ${MIMER_DATABASE}
   fi
-  if [ "${MIMER_TCP_PORT}" = "" ]; then
-    MIMER_TCP_PORT=1360
-  fi
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs TCPPort ${MIMER_TCP_PORT}
-  if [ "${MIMER_MAX_DBFILES}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Databanks ${MIMER_MAX_DBFILES}
-  fi
-  if [ "${MIMER_MAX_USERS}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Users ${MIMER_MAX_USERS}
-  fi
-  if [ "${MIMER_MAX_TABLES}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Tables ${MIMER_MAX_TABLES}
-  fi
-  if [ "${MIMER_MAX_TRANS}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs ActTrans ${MIMER_MAX_TRANS}
-  fi
-  if [ "${MIMER_BUFFERPOOL_SIZE}" != "" ]; then
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages4K $((${MIMER_BUFFERPOOL_SIZE}/2/4))
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages32K $((${MIMER_BUFFERPOOL_SIZE}/3/32))
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages128K $((${MIMER_BUFFERPOOL_SIZE}/6/128))
-  else
-    if [ "${MIMER_PAGES_4K}" != "" ]; then
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages4K ${MIMER_PAGES_4K}
-    fi
-    if [ "${MIMER_PAGES_32K}" != "" ]; then
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages32K ${MIMER_PAGES_32K}
-    fi
-    if [ "${MIMER_PAGES_128K}" != "" ]; then
-      mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs Pages128K ${MIMER_PAGES_128K}
-    fi
-  fi
-
-  if [ "${MIMER_REQUEST_THREADS}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs RequestThreads ${MIMER_REQUEST_THREADS}
-  fi
-  if [ "${MIMER_BACKGROUND_THREADS}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs BackgroundThreads ${MIMER_BACKGROUND_THREADS}
-  fi
-  if [ "${MIMER_TC_FLUSH_THREADS}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs TcFlushThreads ${MIMER_TC_FLUSH_THREADS}
-  fi
-  if [ "${MIMER_BG_PRIORITY}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs BackgroundPriority ${MIMER_BG_PRIORITY}
-  fi
-
-
-  if [ "${MIMER_INIT_SQLPOOL}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs SQLPool ${MIMER_INIT_SQLPOOL}
-  fi
-  if [ "${MIMER_MAX_SQLPOOL}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs MaxSQLPool ${MIMER_MAX_SQLPOOL}
-  fi
-
-
-  if [ "${MIMER_DELAYED_COMMIT}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs DelayedCommit ${MIMER_DELAYED_COMMIT}
-  fi
-  if [ "${MIMER_DELAYED_COMMIT_TIMEOUT}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs DelayedCommitTimeout ${MIMER_DELAYED_COMMIT_TIMEOUT}
-  fi
-  if [ "${MIMER_GROUP_COMMIT_TIMEOUT}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs GroupCommitTimeout ${MIMER_GROUP_COMMIT_TIMEOUT}
-  fi
-  if [ "${MIMER_NETWORK_ENCRYPTION}" != "" ]; then
-    mimchval ${MIMER_DATA_DIR}/${MIMER_DATABASE}/multidefs NetworkEncryption ${MIMER_NETWORK_ENCRYPTION}
-  fi
 
   echo "Starting database..."
   mimcontrol -s ${MIMER_DATABASE}
@@ -109,7 +43,7 @@ then
 fi
 
 #Check if there is a database in MIMER_DATA_DIR
-if [ ! -e ${MIMER_DATA_DIR}/${MIMER_DATABASE} -o ! -e ${MIMER_DATA_DIR}/${MIMER_DATABASE}/sysdb110.dbf ];
+if [ ! -e ${MIMER_DATA_DIR}/${MIMER_DATABASE} -o ! -e ${MIMER_DATA_DIR}/${MIMER_DATABASE}/sysdb100.dbf ];
 then
   CREATE_DATABASE=1
 else
