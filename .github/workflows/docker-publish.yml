@@ -86,7 +86,7 @@ jobs:
 
       - name: Docker Hub Description
         uses: peter-evans/dockerhub-description@v2
-        if: ${{is_default_branch}}
+        if: github.ref == env.default_branch_ref
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
