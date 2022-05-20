@@ -1,47 +1,25 @@
 # This Docker image is based on Ubuntu
-ARG BASE=ubuntu:20.04
-FROM ${BASE} as v110
-
-# update and install necessary utilities
-RUN apt-get update && \
-    apt-get install -y wget  && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# set the name of the package
-ARG MIMVERSION=mimersqlsrv1106_11.0.6C
-ARG DEBFILE=${MIMVERSION}-37151_amd64.deb
-ARG BASE_URL=https://download.mimer.com/pub/beta/linux_x86_64
-
-# fetch the package and install it
-RUN wget -nv -o {DEBFILE} ${BASE_URL}/${DEBFILE} && \
-    dpkg --install ${DEBFILE} && \
-    rm ${DEBFILE}
+FROM richardwiden/mimersql:latest
 
 # This Docker image is based on Ubuntu
+ARG BASE=ubuntu:20.04
 FROM ${BASE}
 
 # update and install necessary utilities
 RUN apt-get update && \
-    apt-get install -y wget  && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# update and install necessary utilities
-RUN apt-get update && \
-    apt-get install -y procps file sudo  && \
+    apt-get install -y wget procps file sudo  && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 
 # set the name of the package
-ENV MIMVERSION mimersqlsrv1105_11.0.5A
-ENV DEBFILE ${MIMVERSION}-34698_amd64.deb 
+ENV MIMVERSION mimersql1016_10.1.6D
+ENV DEBFILE ${MIMVERSION}-36610_amd64.deb
 
 # fetch the package and install it
-RUN wget -nv -o ${DEBFILE} http://ftp.mimer.com/pub/dist/linux_x86_64/${DEBFILE}
-RUN dpkg --install ${DEBFILE} --ignore-depend=zenity
-COPY --from v110 /
+RUN wget -nv -O ${DEBFILE} https://download.mimer.com/pub/dist/linux_x64/${DEBFILE}
+RUN dpkg --ignore-depends=zenity --install ${DEBFILE}
+COPY --from=v110 /opt/mimersqlsrv1106-11.0.6C/bin/mimchval /opt/${MIMVERSION}/bin/mimchval
 STOPSIGNAL SIGINT
 
 # copy the start script and launch Mimer SQL
