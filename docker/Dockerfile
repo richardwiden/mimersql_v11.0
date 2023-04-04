@@ -24,7 +24,7 @@ ARG MIM_DIR=${MIM_MAIN_VER}-${MIM_SPECIFIC_VER}
 # fetch the package and install it
 RUN wget -nv -O ${DEBFILE} https://download.mimer.com/pub/dist/linux_x64/${DEBFILE} &&\
     dpkg --ignore-depends=zenity --install ${DEBFILE} &&\
-    rm ${DEBFILE} \
+    rm ${DEBFILE}
 COPY --from=v110 /opt/mimersqlsrv1107-11.0.7A/bin/mimchval /opt/${MIM_DIR}/bin/mimchval
 
 # copy the start script and launch Mimer SQL
