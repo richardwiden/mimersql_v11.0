@@ -9,12 +9,12 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # set the name of the package
-ARG MIMVERSION=mimersqlsrv1106_11.0.6C
-ARG DEBFILE=${MIMVERSION}-37151_amd64.deb
-ARG BASE_URL=https://download.mimer.com/pub/beta/linux_x86_64
+ARG MIMVERSION=mimersqlsrv1107_11.0.7A
+ARG DEBFILE=${MIMVERSION}-38678_amd64-openssl1.deb
+ARG BASE_URL=https://download.mimer.com/pub/dist/linux_x86_64/
 
 # fetch the package and install it
-RUN wget -nv -o {DEBFILE} ${BASE_URL}/${DEBFILE} && \
+RUN wget -nv -o {DEBFILE} ${BASE_URL}${DEBFILE} && \
     dpkg --install ${DEBFILE} && \
     rm ${DEBFILE}
 
