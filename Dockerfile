@@ -1,5 +1,5 @@
 # This Docker image is based on Ubuntu
-FROM richardwiden/mimersql:latest
+FROM richardwiden/mimersql:latest as v110
 
 # This Docker image is based on Ubuntu
 ARG BASE=ubuntu:20.04
@@ -13,8 +13,8 @@ RUN apt-get update && \
 
 
 # set the name of the package
-ENV MIMVERSION mimersql1016_10.1.6D
-ENV DEBFILE ${MIMVERSION}-36610_amd64.deb
+ARG MIMVERSION=mimersql1016_10.1.6D
+ARG DEBFILE=${MIMVERSION}-36610_amd64.deb
 
 # fetch the package and install it
 RUN wget -nv -O ${DEBFILE} https://download.mimer.com/pub/dist/linux_x64/${DEBFILE}
